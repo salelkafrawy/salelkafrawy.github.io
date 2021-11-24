@@ -31,11 +31,11 @@ The reliability graph shows the relationship between the predicted probability a
 ![Model Confusion Matrix](/Images/M2_BM_Q3_VisualSummary.png)
 
 ### Comet.ml links:
-Logistic regression classifier, trained on distance to net only: [baseline-logreg-distance-only](https://www.comet.ml/tim-k-lee/model-registry/baseline-logreg-distance-only)
+Logistic regression classifier, trained on distance to net only: [baseline-logistic-regression-distance-only](https://www.comet.ml/tim-k-lee/model-registry/baseline-logistic-regression-distance-only)
 
-Logistic regression classifier, trained on angle to net only: [baseline-logreg-angle-only](https://www.comet.ml/api/rest/v2/registry-model/item/download?workspaceName=tim-k-lee&modelName=baseline-logreg-angle-only&version=1.0.0)
+Logistic regression classifier, trained on angle to net only: [baseline-logistic-regression-angle-only](https://www.comet.ml/tim-k-lee/model-registry/baseline-logistic-regression-angle-only)
 
-Logistic regression classifier, trained on both distance and angle to net: [baseline-logreg-distance-and-angle](https://www.comet.ml/api/rest/v2/registry-model/item/download?workspaceName=tim-k-lee&modelName=baseline-logreg-distance-and-angle&version=1.0.0)
+Logistic regression classifier, trained on both distance and angle to net: [baseline-logistic-regression-distance-and-angle](https://www.comet.ml/tim-k-lee/model-registry/baseline-logistic-regression-distance-and-angle)
 
 
 
