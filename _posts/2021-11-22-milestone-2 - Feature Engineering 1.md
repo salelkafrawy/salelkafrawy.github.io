@@ -53,7 +53,8 @@ shots[(shots.distance_from_net >= 150) & (shots.is_goal) & (~shots.is_empty_net)
 
 An example of such mislabelled data is Adam Cracknell's first period goal on February 21, 2016, against the Colorado Avalanche.
 
-It is labeled with a x_coordinate value (see figure below) much higher than reality. The labeled data suggests that the shot occured at the opposite end of the ice, i.e. not within a few feet of the net. [[nhl.com](https://www.nhl.com/video/cracknell-opens-the-scoring/t-278025682/c-41679503)]
+Reviewing video of the goal available on  [[nhl.com](https://www.nhl.com/video/cracknell-opens-the-scoring/t-278025682/c-41679503)] showed that the shot occurred at the opposite end of the ice from the location implied by the coordinates in the API record, i.e. just a few feet from the net.
+
 
 ![Sample of Mislabelled Data](/Images/M2_FE1_Q3_Mislabelled_Data.png){: .center-image }
 
