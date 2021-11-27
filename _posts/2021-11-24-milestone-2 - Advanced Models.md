@@ -8,7 +8,7 @@ title: NHL Data Science Project - Milestone 2 - Advanced Models
 
 ## Q1: XGBoost Trained on Distance and Angle Features
 
-The XGBoost library is utilized to create the gradient boosted tree classifier, an ensembling method that combines outputs from individual trees to generate the final prediction. A baseline XGBoost model is created as instructed. This baseline model uses the same training/validation setup as the logistic regression models and is trained only on distance and angle features. Compare to the Logistic Regression model trained on distance and angle, the only difference is that the input features are not normalized. This decision is made based on the fact that decision trees are usually not affected by any monotonic transformation. 
+The XGBoost library is utilized to create the gradient boosted tree classifier, an ensembling method that combines outputs from individual trees to generate the final prediction. A simple XGBoost model with a learning rate of 1, depth of 2, using logistic regression for binary classification is created. This baseline model uses the same training/validation setup as the logistic regression models and is trained only on distance and angle features. Compare to the Logistic Regression model trained on distance and angle, the only difference is that the input features are not normalized. This decision is made based on the fact that decision trees are usually not affected by any monotonic transformation. 
 
 While the baseline XGBoost model achieves a very similar accuracy compare to the its Logistic Regssion counterpart (~90%), the confusion matrix reveals that the prediction of goals by this model is non-zero. Plotting the baseline XGBoost model with the Logistis Regression model on the four performance evaluation figures confirms that the XGBoost model has a marginal performance advantage over the Logistis Regression model (See below). Most notably, the reliability curve shows that the XGBoost model produces more higher predicted Probabilities that are inline with the perfectly calibrated line. 
 
@@ -28,17 +28,21 @@ Experiment entry: https://www.comet.ml/tim-k-lee/ift6758-hockey/70a252e382c74d94
 ## Q2: XGBoost Trained on New Features and Hyperparameter Tuning
 
 
+"""In your blog post, discuss your hyperparameter tuning setup, and include figures to substantiate your choice of hyperparameters. For example, you could select appropriate metrics and do a grid search with cross validation. Once tuned, include curves corresponding to the best model to the four figures in your blog post, and briefly compare the results to the XGBoost baseline. Include a link to the relevant comet.ml entry for this experiment, and log this model to the model registry."""
 
+The optimal hyperparameters are obtained through the random search cross validation method. A 5 fold cross-validation splitting strategy is selected, this strategy is repeated 50 iterations to determine the optimal combination. The combination is then refit one last time using the entire dataset to avoid overfitting. The input features used in this experiment include the new features added in the previous sections but exclude the bonus features.
 
-In your blog post, discuss your hyperparameter tuning setup, and include figures to substantiate your choice of hyperparameters. For example, you could select appropriate metrics and do a grid search with cross validation. Once tuned, include curves corresponding to the best model to the four figures in your blog post, and briefly compare the results to the XGBoost baseline. Include a link to the relevant comet.ml entry for this experiment, and log this model to the model registry.
+The parameters obtained through the optimization process are as follow:
+ - Learning rate step size [learning_rate]: 0.1
+ - Number of gradient boosted trees [n_estimators]: 275
+ - Maximum tree depth [max_depth]: 1
+ - Minimum loss reduction required for split [gamma]: 0.1
 
+The identified optimal hyperparameters are used to created a tuned XGBoost classifier. The confusion matrix shows that the tuned model predicted more goals than the baseline model and has a minor accuracy increment of ~2%. The two models are plotted on the evaluation figures as shown below. It is very apparent that the tuned model is performing better than the baseline. It achieves an AUC of ~0.82, a ~15% increase from the baseline. Both the positive rate by percentile figure and the positive proportion by percentile figure suggest that the probability prediction of the tuned model is more aligned with the actual goal rate. This observation is further reinforced by the reliability curve. The model is capable of generating a high probability prediction even though most of those predictions lie above the perfectly calibrated line rather than overlapping it. Nevertheless, this is the best performing model to this point.
 
-Accuracy: 0.923
-
-| Actual: No Goal |        60067       |        101        |
-|   Actual: Goal  |        4981        |        1241        |
+| Actual: No Goal |        60048       |        120        |
+|   Actual: Goal  |        5110        |        1112        |
 |                 | Predicted: No Goal | Predicted: Goal |
-
 
 ![XGBoost Hyperparameter Tuned](/Images/M2_AM_Q2_XGBoost_Hyper_Tuned.png)
 
@@ -51,7 +55,10 @@ XGBoost classifier, trained on new features and hyperparameter tuning: [gbdt-hpa
 ## Q3: XGBoost Trained on Optimal Feature Set
 
 
-Discuss the feature selection strategies that you tried, and what was the most optimal set of features that you came up with. Include some figures to substantiate your claims. Once you’ve found the optimal set of features via hyperparameter tuning/cross validation, if the feature set is different than what was used for Q2 of this section, include curves corresponding to the best model to the four figures in your blog post, and briefly compare the results to the XGBoost baseline. Include a link to the relevant comet.ml entry for this experiment, and log this model to the model registry.
+
+
+
+"""Discuss the feature selection strategies that you tried, and what was the most optimal set of features that you came up with. Include some figures to substantiate your claims. Once you’ve found the optimal set of features via hyperparameter tuning/cross validation, if the feature set is different than what was used for Q2 of this section, include curves corresponding to the best model to the four figures in your blog post, and briefly compare the results to the XGBoost baseline. Include a link to the relevant comet.ml entry for this experiment, and log this model to the model registry."""
 
 
 ![XGBoost Optimal](/Images/M2_AM_Q2_XGBoost_Hyper_Optimal.png)
