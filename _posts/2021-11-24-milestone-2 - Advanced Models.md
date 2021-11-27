@@ -27,9 +27,6 @@ Experiment entry: https://www.comet.ml/tim-k-lee/ift6758-hockey/70a252e382c74d94
 
 ## Q2: XGBoost Trained on New Features and Hyperparameter Tuning
 
-
-"""In your blog post, discuss your hyperparameter tuning setup, and include figures to substantiate your choice of hyperparameters. For example, you could select appropriate metrics and do a grid search with cross validation. Once tuned, include curves corresponding to the best model to the four figures in your blog post, and briefly compare the results to the XGBoost baseline. Include a link to the relevant comet.ml entry for this experiment, and log this model to the model registry."""
-
 The optimal hyperparameters are obtained through the random search cross validation method. A 5 fold cross-validation splitting strategy is selected, this strategy is repeated 50 iterations to determine the optimal combination. The combination is then refit one last time using the entire dataset to avoid overfitting. The input features used in this experiment include the new features added in the previous sections but exclude the bonus features.
 
 The parameters obtained through the optimization process are as follow:
@@ -54,14 +51,30 @@ XGBoost classifier, trained on new features and hyperparameter tuning: [gbdt-hpa
 
 ## Q3: XGBoost Trained on Optimal Feature Set
 
+Two methods of performing feature selection were explored, the Lasso and the SHAP. The Lasso method selects features based on penalizing and reducing the corresponding coeffiicents. The coeffiicents for insignificant features will eventually be reduced to zero and thus dropped. The SHAP method calculates the impact of each feature to the model and selects features with the highest importance. The list of features that udnerwent these processes are the features used to determine the optimized hyperparameters in the previous section. 
 
+Both methods generated a very similar result. Out of the 15 input features, 11 features were selected, these features are:  
+ - "distance_from_net"
+ - "is_rebound"
+ - "prev_event_SHOT"
+ - "prev_event_time_diff"
+ - "angle"
+ - "is_empty_net"
+ - "shot_Snap Shot"
+ - "shot_Slap Shot"
+ - "distance_from_prev_event"
+ - "coordinate_y"
+ - "prev_event_HIT"
 
+The hyperparameter for the model is tuned again using the same optimization process but with the new feature set. The resulting hyperparameters are:
+ - Learning rate step size [learning_rate]: 0.062
+ - Number of gradient boosted trees [n_estimators]: 495
+ - Maximum tree depth [max_depth]: 5
+ - Minimum loss reduction required for split [gamma]: 0.184
 
+The results of the tuned model with feature selection are plotted on the four performance evaluation figures with the previous XGBoost models. The ROC, positive rate by percentile, and positive proportion by percentile all show a comparable result between the hyperparameter optimized model and the models that underwent feature selection. The performance improvement is observed through the reliability figure. The tuned models trained on the selected features are much closer to the perfectly calibrated line than all other models.
 
-"""Discuss the feature selection strategies that you tried, and what was the most optimal set of features that you came up with. Include some figures to substantiate your claims. Once you’ve found the optimal set of features via hyperparameter tuning/cross validation, if the feature set is different than what was used for Q2 of this section, include curves corresponding to the best model to the four figures in your blog post, and briefly compare the results to the XGBoost baseline. Include a link to the relevant comet.ml entry for this experiment, and log this model to the model registry."""
-
-
-![XGBoost Optimal](/Images/M2_AM_Q2_XGBoost_Hyper_Optimal.png)
+![XGBoost Feature Selected](/Images/M2_AM_Q3_XGBoost_Tuned_Feature_Selected.png)
 
 ### Comet.ml link:
 XGBoost classifier, trained on optimal feature set: [TBD](https://www.comet.ml/tim-k-lee/model-registry/TBD)
