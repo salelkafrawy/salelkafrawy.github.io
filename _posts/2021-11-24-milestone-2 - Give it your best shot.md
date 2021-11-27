@@ -8,36 +8,35 @@ title: NHL Data Science Project - Milestone 2 - Give It Your Best Shot!
 
 ## Q1: Explored Models Discussion and Comparison
 
-"""In your blog post, discuss the various techniques and methods you tried. Include the same four figures as in Part 3
-Make sure to include and highlight what you consider your best ‘final’ model."""
 
 
 
-To create a better goal probability prediction model, neural networks is one of the techniques explored. Four different MLP models were created using a different input feature set, the feature set and the included features are:
+To create a better goal probability prediction model, neural networks was one of the techniques explored. Four different MLP models were created using a different input feature set, the feature set and the included features were:
 - Distance: `distance_from_net`
 - Baseline: `distance_from_net`, `angle`
 - Basic: `period`, `goals_home`, `goals_away`, `shooter_id`, `coordinate_x`, `coordinate_y`, `distance_from_net`, `angle`
 - Advance: `game_sec`, `period`, `secondary_type`, `coordinate_x`, `coordinate_y`, `distance_from_net`, `angle`, `prev_event_type`, `angle_between_prev_event`, `distance_from_prev_event`, `prev_event_time_diff`, `speed`, `is_rebound`, `rebound_angle`, `is_empty_net`
 
-All the feature set are preprocessed using the following procedure:
+All the feature set were preprocessed using the following procedure:
 - Consolidate the representation of certain categorical features by relabeling different events with the same label.
-- Encode categorical features using on-hot encoding.
-- Normalize all features by subtracting the mean and scaled to unit variance.
+- Encode categorical features using one-hot encoding.
+- Normalize all features by subtracting the feature mean and scaling to unit variance.
 - Replace all NaN values with 0.
    
-The Adam optimization algorithm with a logistic activation function and adaptive learning rate are selected for the MLP models. The number of neurons in the input layer is selected to be the number of features plus one and similarly the output layer has an output neuron plus one. This one extra neuron is intended to represent the bias term. Only a single hidden layer was used, the number of hidden neurons is the mean of the input neurons and the output neurons.
+The MLP models used the Adam optimization algorithm with a logistic activation function and adaptive learning rate. The number of neurons in the input layer was selected to be the number of features plus one, similarly the output layer has one output neuron for the binary class plus one. The one extra neuron was intended to represent the bias term. Only a single hidden layer was used, the number of hidden neurons was the mean of the input neurons and the output neurons.
  
-The MLP models trained on the distance, baseline, and basic feature set produced the same accuracy of ~90 % and the same confusion matrix where there is zero prediction of goals. The MLP model trained on the advance feature set produces an accuracy of ~92 % and the prediction of goals is non-zero as shown in the confusion matrix below.
+The MLP models trained on the distance, baseline, and basic feature set produced the same accuracy of ~90 % and the same confusion matrix with zero prediction of goals. The MLP model trained on the advance feature set produced an accuracy of ~92 % and the prediction of goals was non-zero as shown in the confusion matrix below.
 
 | Actual: No Goal |        60113       |        55        |
 |   Actual: Goal  |        5023        |        1199        |
 |                 | Predicted: No Goal | Predicted: Goal |
 
-Evaluating the models using the evaluation figures suggests that the performance of the model increases as the number of input feature increases as shown below. The model train on the advance feature set outperforms all other models. The increase in AUC using the distance feature set and the advance feature set is close to 20 %. The reliability curve shows that using the advance feature set allows the model to become more aligned with the perfectly calibrated line.
+Evaluating the models using the evaluation figures suggests that the performance of the model increases as the number of input feature increases as shown below. The model trained on the advance feature set outperformed all other models. The increase in AUC using the distance feature set and the advance feature set was close to 20 %. The reliability curve shows that using the advance feature set allowed the model to become more aligned with the perfectly calibrated line. The true positive rate curve shows a significant performance improvement at high probability percentiles when using the advance feature set.
+ 
 
 ![Neural Network Models Comparison](/Images/M2_BS_Q1_NeuralNetworkComparison.png)
 
-The effect of the number of hidden layer neurons is investigated and the results plotted in the evaluation figures shown below. The model trained on the advance feature set is used in this exercise. The figures suggest that the number of hidden neurons has no direct impact on the performance of the model.
+The effect of the number of hidden layer neurons was investigated and the results plotted in the evaluation figures shown below. The model trained on the advance feature set was used in this exercise. The figures suggest that the number of hidden neurons had no direct impact on the performance of the model.
 
 ![Neural Network Models Comparison](/Images/M2_BS_Q1_HiddenNeuronComparison.png)
 
