@@ -35,4 +35,4 @@ Bonus features to capture the power-play situation:
 {% endcomment %}
 
 
-The saved dataframe with the above features of the game id=2017021065 (Winnipeg vs Washington game on March 12, 2018) is stored in [this comet.ml experiment](https://www.comet.ml/tim-k-lee/ift6758-hockey/1044dea36bb240f785c459c045f91b50) under the saved artifacts. 
+The saved data frame with the above features of the game id=2017021065 (Winnipeg vs Washington game on March 12, 2018) was stored in [this comet.ml experiment](https://www.comet.ml/tim-k-lee/ift6758-hockey/1044dea36bb240f785c459c045f91b50) in the dataframes folder under Assets & Artifacts. 
